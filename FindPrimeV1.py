@@ -1,16 +1,24 @@
-import math
 import time
 
-start_time = time.time()
-n = 9868045784972602240730631194380879408294672286564976063774888099602859710393333183174649996662674633
-sqrt_n = int(math.ceil(math.sqrt(n)))
-for i in range(2, sqrt_n+1):
-    if n % i == 0:
-        print( "%s is not a prime " % (n,))
-        break
+def is_prime(n):
+    if n <= 1:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
 
-    else:
-        print("%s is a prime" % (n,))
-    end_time = time.time()
-    print ("This took %.2f seconds" % (end_time - start_time))
-    break
+# Hard-coded value for n (a prime number)
+n = 3761876186350270487
+
+start_time = time.time()
+
+# Check if n is prime
+if is_prime(n):
+    print(f"{n} is a prime number")
+else:
+    print(f"{n} is not a prime number")
+
+elapsed_time = time.time() - start_time
+print(f"Elapsed time: {elapsed_time:.2f} seconds")
+
