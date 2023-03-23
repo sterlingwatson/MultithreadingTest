@@ -8,17 +8,22 @@ def is_prime(n):
             return False
     return True
 
-# Hard-coded value for n (a prime number)
-n = 3761876186350270487
+n = 7
 
-start_time = time.time()
 
-# Check if n is prime
-if is_prime(n):
-    print(f"{n} is a prime number")
-else:
-    print(f"{n} is not a prime number")
+with open("Times.txt", "a") as file:
+    for i in range(5):
+        start_time = time.time()
 
-elapsed_time = time.time() - start_time
-print(f"Elapsed time: {elapsed_time:.2f} seconds")
+        if is_prime(n):
+            print(f"{n} is a prime number")
+        else:
+            print(f"{n} is not a prime number")
+
+        time_taken = time.time() - start_time
+        print(f"Time: {time_taken:.2f} seconds")
+        file.write(f"Run {i+1}, {time_taken:.2f} seconds, Version 1 with 1 Processor\n")
+
+
+file.close()
 
