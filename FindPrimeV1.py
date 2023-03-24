@@ -1,14 +1,14 @@
 import time
+import math
 
 def is_prime(n):
-    if n <= 1:
-        return False
-    for i in range(2, int(n**0.5) + 1):
+    sqrt_n = int(math.ceil(math.sqrt(n)))
+    for i in range(2, sqrt_n + 1):
         if n % i == 0:
             return False
     return True
 
-n = 7
+n = 483463113173934329 
 
 
 with open("Times.txt", "a") as file:
