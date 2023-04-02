@@ -3,3 +3,9 @@ Run 2, 42.09 seconds, Version 1 with 1 Processor
 Run 3, 42.21 seconds, Version 1 with 1 Processor
 Run 4, 42.23 seconds, Version 1 with 1 Processor
 Run 5, 41.88 seconds, Version 1 with 1 Processor
+Run 1, 0.00 seconds, Version 1 with 1 Processor
+Run 2, 0.00 seconds, Version 1 with 1 Processor
+Run 3, 0.00 seconds, Version 1 with 1 Processor
+Run 4, 0.00 seconds, Version 1 with 1 Processor
+Run 5, 0.00 seconds, Version 1 with 1 Processor
+Run 1, 50.21 seconds, Version 1 with 1 Processor
