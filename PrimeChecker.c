@@ -3,7 +3,7 @@
 #include <math.h>
 #include <time.h>
 
-bool is_prime(long long n) {
+bool is_prime(unsigned long long n) {
     int sqrt_n = (int)ceil(sqrt(n));
     for (int i = 2; i <= sqrt_n; i++) {
         if (n % i == 0) {
@@ -14,7 +14,7 @@ bool is_prime(long long n) {
 }
 
 int main() {
-    long long n = 483463113173934329;
+    long long n = 8733997939747861159;
 
     FILE *file = fopen("Times.txt", "a");
     for (int i = 0; i < 5; i++) {
