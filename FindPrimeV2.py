@@ -79,6 +79,7 @@ if __name__ == '__main__':
                 #print(f"{n} is not a prime number"
             if primes.__contains__(n):
                 print(f'{n} is prime')
+                
         time_taken = time.time() - start_time
         print(f"Time: {time_taken:.2f} seconds")
               #file.write(f"Run {y+1}, {time_taken:.2f} seconds, Version 2 with 1 Processor and 2 threads\n")
