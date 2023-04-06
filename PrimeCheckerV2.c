@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include <time.h>
+#include <pthread.h>
 
 bool is_prime(unsigned long long n) {
     int sqrt_n = (int)ceil(sqrt(n));
@@ -13,15 +14,40 @@ bool is_prime(unsigned long long n) {
     return true;
 }
 
+typedef struct {
+    unsigned long long n;
+    bool *result;
+} threading_data; //struct for holding from each thread
+
+void *find_prime(void *arg){
+    threading_data *data = (threading_data*)arg;
+    *(data->result) = is_prime(data -> n);
+    return NULL;
+}
+
 int main() {
     unsigned long long n = 18446744073709551557ULL;
+
+    bool result1 = false;
+    bool result2 = false;
 
     FILE *file = fopen("Times.txt", "a");
 
     for (int i = 0; i < 5; i++) {
         clock_t start_time = clock();
 
-        if (is_prime(n)) {
+        pthread_t threads[2];
+        threading_data data1 = {n, &result1};
+        threading_data data2 = {n, &result2};
+
+        pthread_create(&threads[0], NULL, find_prime, &data1);
+        pthread_create(&threads[0], NULL, find_prime, &data1);
+
+        pthread_join(threads[0], NULL);
+        pthread_join(threads[1], NULL);
+
+
+        if (result1 || result2) {
             printf("%llu is a prime number\n", n);
         } else {
             printf("%llu is not a prime number\n", n);
