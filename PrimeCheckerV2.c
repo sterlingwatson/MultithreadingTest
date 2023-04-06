@@ -41,7 +41,7 @@ int main() {
         threading_data data2 = {n, &result2};
 
         pthread_create(&threads[0], NULL, find_prime, &data1);
-        pthread_create(&threads[0], NULL, find_prime, &data1);
+        pthread_create(&threads[0], NULL, find_prime, &data2);
 
         pthread_join(threads[0], NULL);
         pthread_join(threads[1], NULL);
