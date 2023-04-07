@@ -4,13 +4,19 @@
 #include <time.h>
 #include <pthread.h>
 
-bool is_prime(unsigned long long n) {
-    int sqrt_n = (int)ceil(sqrt(n));
-    for (unsigned long long i = 2; i <= sqrt_n; i++) {
-        if (n % i == 0) {
-            return false;
+bool is_prime(unsigned long long start, unsigned long long end) {
+        //printf("Inside \n");
+    for (unsigned long long n =start; n <= end; n++){
+        //printf("Inside \n");
+        int sqrt_n = (int)ceil(sqrt(n));
+        //printf("SquareRoot calculated \n");
+
+        for (unsigned long long i = 2; i <= sqrt_n; i++) {
+            if (end % i == 0) {
+                return false;
+            }            
         }
-    }
+    }   
     return true;
 }
 
@@ -22,35 +28,45 @@ typedef struct {
 
 void *find_prime(void *arg){
     threading_data *data = (threading_data*)arg;
-    *(data->result) = is_prime(data -> n);
+    *(data->result) = is_prime(data -> start, data -> end);
     return NULL;
 }
 
 int main() {
-    unsigned long long n = 949175020003302601; //18446744073709551557ULL;
+    unsigned long long n = 13;//949175020003302601; //
+    printf("first line of main \n");
+    //unsigned long long n = 18446744073709551557ULL;
+    unsigned long long midpoint = n/2;
+    printf("midpoint found \n");
 
     bool result1 = false;
     bool result2 = false;
-    bool result3 = false;
 
-    FILE *file = fopen("Times.txt", "a");
+    //FILE *file = fopen("Times.txt", "a");
 
     for (int i = 0; i < 5; i++) {
         clock_t start_time = clock();
 
         pthread_t threads[2];
-        threading_data data1 = {n/3, &result1};
-        threading_data data2 = {(2*n)/2, &result2};
+        printf("made threads\n");
+        threading_data data1 = {2, midpoint, &result1};
+                printf("data assigned thread 1\n");
+        threading_data data2 = {midpoint+1, n, &result2};
+                        printf("data assigned thread 2\n");
+
 
         pthread_create(&threads[0], NULL, find_prime, &data1);
-        pthread_create(&threads[0], NULL, find_prime, &data2);
+                        printf("thread 1\n");
+
+        pthread_create(&threads[1], NULL, find_prime, &data2);
+                                printf("thread 2\n");
+
 
         pthread_join(threads[0], NULL);
         pthread_join(threads[1], NULL);
-	pthread_join(threads[2], NULL);
 
 
-        if (result1 || result2 || result3) {
+        if (result1 && result2) {
             printf("%llu is a prime number\n", n);
         } else {
             printf("%llu is not a prime number\n", n);
@@ -58,9 +74,9 @@ int main() {
 
         double time_taken = (double)(clock() - start_time) / CLOCKS_PER_SEC;
         printf("Time: %.2f seconds\n", time_taken);
-        fprintf(file, "Run %d, %.2f seconds, Version 2 with 3 Processor\n", i+1, time_taken);
+        //fprintf(file, "Run %d, %.2f seconds, Version 2 with 3 Processor\n", i+1, time_taken);
     }
 
-    fclose(file);
+    //fclose(file);
     return 0;
 }

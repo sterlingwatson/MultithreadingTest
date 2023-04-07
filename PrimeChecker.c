@@ -14,7 +14,8 @@ bool is_prime(unsigned long long n) {
 }
 
 int main() {
-    unsigned long long n=  949175020003302601; //9782923512283668847ULL;  // 18446744073709551557ULL;
+    //unsigned long long n=  949175020003302601; //9782923512283668847ULL;  // 
+    unsigned long long n = 18446744073709551557ULL;
     FILE *file = fopen("Times.txt", "a");
 
     for (int i = 0; i < 5; i++) {
