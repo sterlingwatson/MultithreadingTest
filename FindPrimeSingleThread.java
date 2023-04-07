@@ -1,5 +1,5 @@
-import java.util.concurrent.TimeUnit;
 import java.math.BigInteger;
+import java.io.*;
 
 public class FindPrimeSingleThread {
     
@@ -16,26 +16,41 @@ public class FindPrimeSingleThread {
     }
         
     public static void main(String[] args) {
+        String fileName = "RunTimes.txt";
+
         String input = "2135729";
         BigInteger two = BigInteger.TWO;
         BigInteger n = new BigInteger(input);
 
-        boolean result = false;
+        try{
+
+            FileWriter fw = new FileWriter(fileName, true);
+            BufferedWriter buffer = new BufferedWriter(fw);
+
+            boolean result = false;
         
-        for (int i = 0; i < 5; i++) {
-            long startTime = System.nanoTime();
+            for (int i = 0; i < 5; i++) {
+                long startTime = System.nanoTime();
             
-            result = isPrime(two, n);
+                result = isPrime(two, n);
             
-            if (result) {
-                System.out.println(n + " is a prime number");
-            } else {
-                System.out.println(n + " is not a prime number");
+                if (result) {
+                    System.out.println(n + " is a prime number");
+                } else {
+                   System.out.println(n + " is not a prime number");
+                }
+
+                float timeTaken = ((System.nanoTime() - startTime));
+                double timeInSeconds = timeTaken/1000000000;
+                String timeString =  String.format("Time: %.2f seconds, Run: %d with 1 Processor and 1 Thread", timeInSeconds, i);
+                System.out.printf("Time: %.2f seconds\n", timeInSeconds);
+                buffer.write(timeString);
             }
-            
-            double timeTaken = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - startTime);
-            System.out.printf("Time: %.2f seconds\n", timeTaken);
+            buffer.close();
+        }catch (IOException e) {
+            System.out.println("An error occurred while trying to append the content to the file: " + e.getMessage());
         }
+        
     }
 }
 
