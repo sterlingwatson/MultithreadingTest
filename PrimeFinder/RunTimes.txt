@@ -1,0 +1,22 @@
+Time: 33.50 seconds, Run: 0 with 3 Processor and 3 Threads
+Time: 32.97 seconds, Run: 1 with 3 Processor and 3 Threads
+Time: 33.03 seconds, Run: 2 with 3 Processor and 3 Threads
+Time: 32.78 seconds, Run: 3 with 3 Processor and 3 Threads
+
+Time: 41.54 seconds, Run: 0 with 2 Processor and 2 Threads
+Time: 40.54 seconds, Run: 1 with 2 Processor and 2 Threads
+Time: 40.15 seconds, Run: 2 with 2 Processor and 2 Threads
+Time: 40.00 seconds, Run: 3 with 2 Processor and 2 Threads
+Time: 40.37 seconds, Run: 4 with 2 Processor and 2 Threads
+
+Time: 72.39 seconds, Run: 0 with 1 Processor and 2 Threads
+Time: 70.47 seconds, Run: 1 with 1 Processor and 2 Threads
+Time: 69.25 seconds, Run: 2 with 1 Processor and 2 Threads
+Time: 70.42 seconds, Run: 3 with 1 Processor and 2 Threads
+Time: 79.17 seconds, Run: 4 with 1 Processor and 2 Threads
+
+Time: 59.43 seconds, Run: 0 with 1 Processor and 1 Thread
+Time: 61.17 seconds, Run: 1 with 1 Processor and 1 Thread
+Time: 58.04 seconds, Run: 2 with 1 Processor and 1 Thread
+Time: 58.55 seconds, Run: 3 with 1 Processor and 1 Thread
+Time: 60.34 seconds, Run: 4 with 1 Processor and 1 Thread
