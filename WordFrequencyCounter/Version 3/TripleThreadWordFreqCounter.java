@@ -20,8 +20,8 @@ public class TripleThreadWordFreqCounter {
 
     private static DecimalFormat df = new DecimalFormat("0.00");
 
-    private static BlockingQueue<String> sharedQueue = new LinkedBlockingQueue<>(10000); 
-    private static BlockingQueue<String> sharedQueue2 = new LinkedBlockingQueue<>(10000); 
+    private static BlockingQueue<String> sharedQueue = new LinkedBlockingQueue<>(100000); 
+    private static BlockingQueue<String> sharedQueue2 = new LinkedBlockingQueue<>(100000); 
 
     
     private static boolean inputFinished = false;
@@ -35,12 +35,17 @@ public class TripleThreadWordFreqCounter {
             Thread ioThread = new Thread(new IOThread3());
             Thread splitThread = new Thread(new SplitingThread());
             Thread countThread = new Thread(new CountingThread3());
+
             ioThread.start();
             splitThread.start();
             countThread.start();
+
             ioThread.join();
+            double runTime2 = ((System.nanoTime() - startTime)/1000000000.00);
+            System.out.println(df.format(runTime2) + " Seconds");
             splitThread.join();
             countThread.join();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,7 +66,7 @@ public class TripleThreadWordFreqCounter {
             try{
                 BufferedReader buffer = new BufferedReader(new FileReader("enwik9"));
                 String line = buffer.readLine();
-                for (int i =0; i < 10000000; i++){
+                for (int i = 0; i < 1000000000; i++){
                     line = buffer.readLine();
                     if (line != null) {
                         sharedQueue.put(line);
@@ -97,7 +102,6 @@ public class TripleThreadWordFreqCounter {
                     } catch (Exception e) {
 
                     }
-                    
                 }
             }
         }

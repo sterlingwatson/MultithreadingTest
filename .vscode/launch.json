@@ -1,0 +1,62 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "DoubleWordFrequencyCounter",
+            "request": "launch",
+            "mainClass": "DoubleWordFrequencyCounter",
+            "projectName": "Multithreading_Test_2ce74977"
+        },
+        {
+            "type": "java",
+            "name": "FindPrime",
+            "request": "launch",
+            "mainClass": "FindPrime",
+            "projectName": "Multithreading_Test_2ce74977"
+        },
+        {
+            "type": "java",
+            "name": "FindPrimeSingleThread",
+            "request": "launch",
+            "mainClass": "FindPrimeSingleThread",
+            "projectName": "Multithreading_Test_2ce74977"
+        },
+        {
+            "type": "java",
+            "name": "FindPrimeThreeThread",
+            "request": "launch",
+            "mainClass": "FindPrimeThreeThread",
+            "projectName": "Multithreading_Test_2ce74977"
+        },
+        {
+            "type": "java",
+            "name": "SingleWordFrequencyCounter",
+            "request": "launch",
+            "mainClass": "SingleWordFrequencyCounter",
+            "projectName": "Multithreading_Test_2ce74977"
+        },
+        {
+            "type": "java",
+            "name": "TripleThreadWordFreqCounter",
+            "request": "launch",
+            "mainClass": "TripleThreadWordFreqCounter",
+            "projectName": "Multithreading_Test_2ce74977"
+        }
+    ]
+}
