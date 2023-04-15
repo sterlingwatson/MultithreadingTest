@@ -1,0 +1,6 @@
+Time: 68.12 seconds, Run: 0 with 1 Processor and 1 Thread
+Time: 63.79 seconds, Run: 1 with 1 Processor and 1 Thread
+Time: 63.91 seconds, Run: 2 with 1 Processor and 1 Thread
+Time: 64.24 seconds, Run: 3 with 1 Processor and 1 Thread
+Time: 64.28 seconds, Run: 4 with 1 Processor and 1 Thread
+

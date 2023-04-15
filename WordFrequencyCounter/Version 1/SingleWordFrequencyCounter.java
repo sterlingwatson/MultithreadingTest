@@ -20,37 +20,55 @@ public class SingleWordFrequencyCounter {
 
 
     public static void main(String[] args) {
-        long startTime = System.nanoTime();
+        String output = "RunTimes.txt";
 
-        BufferedReader buffer;
-        String filename = "enwik9";
 
-        try {
-            buffer = new BufferedReader(new FileReader(filename));
-            //String line = buffer.readLine();
+        try{
 
-            for (int i = 0; i < 1000000000; i++) {
+            FileWriter fw = new FileWriter(output, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+        
+            for (int j = 0; j < 5; j++) {
+                long startTime = System.nanoTime();
+                
+                BufferedReader buffer;
+                String filename = "enwik9";
 
-                String line = buffer.readLine();
-                line = line.replaceAll("[^a-zA-Z0-9\\-\\_]", " ");
-                List<String> wordList = new ArrayList<String>(Arrays.asList(line.split((" "))));
-                for (String string : wordList) {
-                    string.trim();
-                    if (string.isEmpty()){
-                        continue;
-                    }else{
-                        lengthCounter(string);
+                try {
+                    buffer = new BufferedReader(new FileReader(filename));
+                    //String line = buffer.readLine();
+                
+                    for (int i = 0; i < 100000000; i++) {
+                    
+                        String line = buffer.readLine();
+                        line = line.replaceAll("[^a-zA-Z0-9\\-\\_]", " ");
+                        List<String> wordList = new ArrayList<String>(Arrays.asList(line.split((" "))));
+                        for (String string : wordList) {
+                            string.trim();
+                            if (string.isEmpty()){
+                                continue;
+                            }else{
+                                lengthCounter(string);
+                            }
+                        }
                     }
+                
+                    buffer.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            }
+                System.out.println(frequencyPrinter());
+                double elapsedTime = ((System.nanoTime() - startTime)/1000000000.00);
+                System.out.println(df.format(elapsedTime) + " Seconds");
+                String timeString =  String.format("Time: %.2f seconds, Run: %d with 1 Processor and 1 Thread\n", elapsedTime, j);
+                bw.write(timeString);
 
-            buffer.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            }
+            bw.write("\n");
+            bw.close();
+        }catch (IOException e) {
+            System.out.println("An error occurred while trying to append the content to the file: " + e.getMessage());
         }
-        System.out.println(frequencyPrinter());
-        double elapsedTime = ((System.nanoTime() - startTime)/1000000000.00);
-        System.out.println(df.format(elapsedTime) + " Seconds");
 
     }
 

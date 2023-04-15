@@ -20,28 +20,49 @@ public class DoubleWordFrequencyCounter {
 
     private static DecimalFormat df = new DecimalFormat("0.00");
 
-    private static BlockingQueue<String> sharedQueue = new LinkedBlockingQueue<>(100000); 
+    private static BlockingQueue<String> sharedQueue = new LinkedBlockingQueue<>(10000); 
     
     private static boolean inputFinished = false;
 
     public static void main(String[] args) {
-        long startTime = System.nanoTime();
+        String output = "RunTimes.txt";
 
-        try {
-            Thread ioThread = new Thread(new IOThread());
-            Thread countThread = new Thread(new CountingThread());
-            ioThread.start();
-            countThread.start();
-            //there is a wait here
-            ioThread.join();
-            countThread.join();
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        try{
+
+            FileWriter fw = new FileWriter(output, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+        
+            for (int j = 0; j < 5; j++) {
+                sharedQueue.clear();
+                inputFinished = false;
+                long startTime = System.nanoTime();
+
+                try {
+                    Thread ioThread = new Thread(new IOThread());
+                    Thread countThread = new Thread(new CountingThread());
+                    ioThread.start();
+                    countThread.start();
+                    //there is a wait here
+                
+                    ioThread.join();
+                    countThread.join();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                System.out.println((frequencyPrinter()));
+                double runTime = ((System.nanoTime() - startTime)/1000000000.00);
+                System.out.println(df.format(runTime) + " Seconds");
+                String timeString =  String.format("Time: %.2f seconds, Run: %d with 1 Processor and 2 Threads\n", runTime, j);
+                bw.write(timeString);
+            }
+            sharedQueue.clear();
+
+            bw.close();
+        }catch (IOException e){
+            System.out.println("An error occurred while trying to append the content to the file: " + e.getMessage());
+
         }
-        System.out.println((frequencyPrinter()));
-        double runTime = ((System.nanoTime() - startTime)/1000000000.00);
-        System.out.println(df.format(runTime) + " Seconds");
-
     }
 
     public static class IOThread implements Runnable{
@@ -54,7 +75,7 @@ public class DoubleWordFrequencyCounter {
         public void run(){
             try{
                 BufferedReader buffer = new BufferedReader(new FileReader("enwik9"));
-                for (int i =0; i < 100000000; i++){
+                for (int i =0; i < 10000000; i++){
                     String line = buffer.readLine();
                     if (line != null) {
                         sharedQueue.put(line);
@@ -64,6 +85,7 @@ public class DoubleWordFrequencyCounter {
             } catch (Exception e){
                 e.printStackTrace();
             }
+            
             inputFinished = true;
         }
     }

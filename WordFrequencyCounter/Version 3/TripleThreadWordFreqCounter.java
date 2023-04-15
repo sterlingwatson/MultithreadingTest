@@ -29,30 +29,51 @@ public class TripleThreadWordFreqCounter {
 
 
     public static void main(String[] args) {
-        long startTime = System.nanoTime();
 
-        try {
-            Thread ioThread = new Thread(new IOThread3());
-            Thread splitThread = new Thread(new SplitingThread());
-            Thread countThread = new Thread(new CountingThread3());
+        String output = "RunTimes.txt";
 
-            ioThread.start();
-            splitThread.start();
-            countThread.start();
 
-            ioThread.join();
-            double runTime2 = ((System.nanoTime() - startTime)/1000000000.00);
-            System.out.println(df.format(runTime2) + " Seconds");
-            splitThread.join();
-            countThread.join();
+        try{
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            FileWriter fw = new FileWriter(output, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+        
+            for (int j = 0; j < 5; j++) {
+                sharedQueue.clear();
+                inputFinished = false;
+                splittingFinished = false;
+
+                long startTime = System.nanoTime();
+
+                try {
+                    Thread ioThread = new Thread(new IOThread3());
+                    Thread splitThread = new Thread(new SplitingThread());
+                    Thread countThread = new Thread(new CountingThread3());
+                
+                    ioThread.start();
+                    splitThread.start();
+                    countThread.start();
+                
+                    ioThread.join();
+                    double runTime2 = ((System.nanoTime() - startTime)/1000000000.00);
+                    System.out.println(df.format(runTime2) + " Seconds");
+                    splitThread.join();
+                    countThread.join();
+                
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                System.out.println((frequencyPrinter()));
+                double runTime = ((System.nanoTime() - startTime)/1000000000.00);
+                System.out.println(df.format(runTime) + " Seconds");
+                String timeString =  String.format("Time: %.2f seconds, Run: %d with 1 Processor and 2 Threads\n", runTime, j);
+                bw.write(timeString);
+
+            }
+            bw.close();
+        }catch (IOException e) {
+            System.out.println("An error occurred while trying to append the content to the file: " + e.getMessage());
         }
-        System.out.println((frequencyPrinter()));
-        double runTime = ((System.nanoTime() - startTime)/1000000000.00);
-        System.out.println(df.format(runTime) + " Seconds");
-
     }
 
     public static class IOThread3 implements Runnable{
@@ -65,9 +86,9 @@ public class TripleThreadWordFreqCounter {
         public void run(){
             try{
                 BufferedReader buffer = new BufferedReader(new FileReader("enwik9"));
-                String line = buffer.readLine();
-                for (int i = 0; i < 1000000000; i++){
-                    line = buffer.readLine();
+                for (int i = 0; i < 10000000; i++){
+                    String line = buffer.readLine();
+
                     if (line != null) {
                         sharedQueue.put(line);
                     }
